@@ -19,61 +19,86 @@
 \begin{document}
   \frontmatter
   \include{title}
-  \include{declaration}
+  % Ehrenwörtliche Erklärung
+  %\include{declaration}
 
-  \include{abstract}
+  %\include{abstract}
 
-  \cleardoublepage
-  \phantomsection
+  \cleardoublepage{}
+  \phantomsection{}
   \pdfbookmark{\contentsname}{tableofcontents}
   \markboth{\contentsname}{}
   \tableofcontents
 
   % Remove this for the final version of the thesis!
-  \cleardoublepage
-  \phantomsection
+  \cleardoublepage{}
+  \phantomsection{}
   \newcommand{\listtodoname}{Aufgabenverzeichnis}
   \pdfbookmark{\listtodoname}{listoftodos}
   \listoftodos[\listtodoname]
 
-  \mainmatter
+  \mainmatter{}
   \include{einleitung}
   \include{grundlagen}
   \include{konzept}
   \include{evaluation}
   \include{fazit}
+  %Overview
+  %Beautiful Soup 4 Setup
+  %Reading HTML Files
+  %Find By Tag Name
+  %Find All By Tag Name
+  %Parsing Website HTML
+  %Locating Text
+  %Beautiful Soup Tree Structure
+  %Searching For Tags
+  %Tag Attributes
+  %Find Multiple Tags
+  %Find Attributes
+  %Find Class Names
+  %Find Regular Expressions
+  %Find Limit
+  %Save Modified HTML
+  %Tree Structure
+  %Tree Siblings 
+  %Tree Parents and Descendants
+  %Getting Crypto Prices
+  %Getting Website HTML
+  %Querying Multiple Pages
+  %Finding Products
+  %Sorting Products By Price
 
   \appendix
 
   \include{appendix}
 
-  \backmatter
+  \backmatter{}
 
-  \cleardoublepage
-  \phantomsection
+  \cleardoublepage{}
+  \phantomsection{}
   \pdfbookmark{\listfigurename}{listoffigures}
   \listoffigures
 
-  \cleardoublepage
-  \phantomsection
+  \cleardoublepage{}
+  \phantomsection{}
   \pdfbookmark{\listtablename}{listoftables}
   \listoftables
 
-  \cleardoublepage
-  \phantomsection
+  \cleardoublepage{}
+  \phantomsection{}
   \renewcommand{\listtheoremname}{Definitions- und Theoremverzeichnis}
   \pdfbookmark{\listtheoremname}{listoftheorems}
   \listoftheorems[ignoreall,show={Lemma,Theorem,Korollar,Definition}]
 
-  \cleardoublepage
-  \phantomsection
+  \cleardoublepage{}
+  \phantomsection{}
   \pdfbookmark{\lstlistlistingname}{listoflistings}
-  \lstlistoflistings
+  \lstlistoflistings{}
 
   \include{abkuerzungen}
 
-  \cleardoublepage
-  \phantomsection
+  \cleardoublepage{}
+  \phantomsection{}
   \pdfbookmark{\bibname}{bibliography}
   \bibliography{literature}
 \end{document}
