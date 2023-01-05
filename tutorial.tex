@@ -1,0 +1,54 @@
+\documentclass[oneside]{scrbook}
+
+\input{style}
+\input{macros}
+
+% Set title and author used in the PDF meta data
+\hypersetup{
+  pdftitle={Webscraping mit Python},
+  pdfauthor={Stefan Schött}
+}
+
+%
+% Depending on which of the following two color schemes you import your thesis will be in color or grayscale.
+% I recommend to generate a colored version as a PDF and a grayscale version for printing.
+
+\input{schema-color}
+%\input{schema-gray}
+
+\newcommand{\duedate}{28. August 2022}
+
+\renewcaptionname{ngerman}{\bibname}{Quellenverzeichnis} 
+
+\begin{document}
+  \frontmatter
+
+  \include{title}
+
+  % Ehrenwörtliche Erklärung
+  %\include{declaration}
+
+  \cleardoublepage{}
+  \phantomsection{}
+  \pdfbookmark{\contentsname}{tableofcontents}
+  \markboth{\contentsname}{}
+  \tableofcontents
+
+  \mainmatter{}
+
+  \include{einleitung}
+  \include{installation}
+  \include{anwendung}
+  \include{fazit}
+
+  \backmatter{}
+
+  \include{abkuerzungen}
+
+  \cleardoublepage{}
+  \phantomsection{}
+  \pdfbookmark{\bibname}{bibliography}
+  \bibliography{literature2}
+
+\end{document}
+

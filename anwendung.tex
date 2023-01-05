@@ -1,0 +1,122 @@
+%!TEX root = thesis.tex
+
+\chapter{Anwendung}
+\label{chapter-anwendung}
+
+Dieses Kapitel beschreibt die einzelnen Schritte, die nötig sind, um ein einfaches Web Scraping unmittelbar auf eine Webseite anzuwenden.
+Es untergliedert sich in Abschnitte für den Request\cite{requests-readthedocs}, das Parsen\cite{bs4} und die Suche bzw. Selektion von Daten\cite{bs4}.
+Als Quellen dienen die jeweiligen Dokumentationen zu den Paketen.
+
+\section{Abfrage und Bezug von HTML Inhalten}
+
+In diesem Abschnitt wird der erste Schritt behandelt,
+um Web Scraping erfolgreich durchführen zu können. 
+Der Bezug von HTML-Inhalten von einer Webseite.
+Hierfür wird das Python Paket \texttt{requests} verwendet.
+Die Verwendung des Paketes ist nach einem entsprechenden Import im Python Code möglich.
+
+\begin{lstlisting}[language=Python,gobble=2]
+  import requests
+\end{lstlisting}
+
+Um eine Webseite abzufragen wird die \texttt{get} Funktion von \texttt{requests} verwendet.
+Dabei wird der Funktion die URL (der Link der Webseite) mitgegeben.
+Auf den Rückgabewert \texttt{get} wird die Funktion \texttt{content} angewendet, bevor der das Ergebnis in einer Variable gespeichert wird.
+
+\begin{lstlisting}[language=Python,gobble=2,label=lst:import]
+  html = requests.get(request_url).content
+\end{lstlisting}
+
+\texttt{content} bewirkt eine vollständige und lesbare Rückgabe der gesamten Webseiten Struktur\cite{requests-readthedocs}.
+
+\section{Parsen von HTML}
+
+Dieser Abschnitt beschreibt einen wesentlichen Schritt, der durchgeführt werden muss, bevor das eigentliche Scrapen von Inhalten beginnen kann.
+Das Einparsen bzw. das Parsen von HTML-Inhalt.
+
+Damit BS4 verwendet werden kann, muss ein Import im Python Code erfolgen.
+Das Paket lässt sich wie folgt importieren\:
+
+\begin{lstlisting}[language=Python,gobble=2,label=lst:import]
+  from bs4 import BeautifulSoup
+\end{lstlisting}
+
+\subsection{Einparsen einer Webseite}
+
+Der Parser stellt eine externe Abhängigkeit von BS4 dar.
+Das Paket bringt keinen eigenen Parser mit.
+BS4 unterstützt den integrierten HTML Parser von Python.
+Daneben können weitere Parser als Alternative eingebunden werden, um zum Beispiel die Performance beim Parsen oder den Umfang an Funktionen zu verbessern.
+Alternativen sind die Parser lxml und html5lib.
+In diesem Tutorial wird der Standard HTML-Parser aus der Grundinstallation von Python verwendet.
+
+Zum Einparsen des HTML-Inhalts einer Webseite muss dieser unter Nennung des Parsers an den BS4 Konstruktur übergeben werden.
+Dies kann in zwei Formen erfolgen. 
+Entweder wird der Inhalt direkt als String übergeben oder als Dokument über das Dateihandling von Python.
+
+Übergabe als String:
+\begin{lstlisting}[language=Python,gobble=2]
+  html = "<html>Inhalt der Webseite</html>"
+  soup = BeautifulSoup(html, 'html.parser')
+\end{lstlisting}
+
+Übergabe aus einer Datei:
+\begin{lstlisting}[language=Python,gobble=2]
+  with open("main.html") as file_to_parse:
+    soup = BeautifulSoup(file_to_parse, 'html.parser')
+\end{lstlisting}
+
+Die Variable soup aus den beiden Codeausschnitten vorher, enthält den geparsten HTML Inhalt.
+Der Inhalt ist nun in einer kompatiblen Form gespeichert, mit der BS4 Funktionen zur Selektion von Daten darauf angewendet werden können.
+
+\subsection{Zwischenstand Request und Parsen}
+
+Anhand von Fall 1 (String) wird der HTML Inhalt durch \texttt{response.get()} geladen und in einer Variable \texttt{html} gespeichert.
+Der Python Code befindet sich nun im folgenden Zustand.
+
+\begin{lstlisting}[language=Python,gobble=2]
+  import requests
+  from bs4 import BeautifulSoup
+
+  html = requests.get("https://www.tagesschau.de/").content
+  soup = BeautifulSoup(html, 'html.parser')
+\end{lstlisting}
+
+Der Code importiert die benötigten Pakete, fragt die Webseite der Tagesschau ab
+und speichert nach dem Parsen den vollständigen HTML Inhalt für die weitere Verwendung in einer Variablen ab.
+Im nächsten Schritt können darauf die eigentlichen Scraping Funktionen von \texttt{bs4} angewendet werden.
+
+\section{Suchen und Selektieren}
+
+Die beiden vorbereitenden Schritte wurden zuvor durchgeführt.
+In der Variable \texttt{soup} befindet sich nun der gesamte HTML Inhalt einer Webseite (Im Beispiel tagesschau.de).
+
+Mithilfe von \texttt{bs4} kann nach verschiedenen Typen von HTML Objekten unter Anwendung der meisten CSS Selektoren gesucht werden.
+Eine umfassende Beschreibung zu HTML\cite{mozilla-html} ist über folgende Link zu finden.
+
+\url{https://developer.mozilla.org/de/docs/Learn/Getting_started_with_the_web/HTML_basics}
+
+Eine ausführliche Anleitung zu CSS Selektoren ist auf w3schools (\url{https://www.w3schools.com/cssref/css_selectors.asp}) abrufbar\cite{css-ref}.
+
+\subsection{Die Funktionen find\_all und find}
+
+Die Funktion \texttt{find\_all} ist eine der wesentlichen Funktionen aus \texttt{bs4} für die Anwendung von Web Scraping.
+Ihr wird ein CSS Selektor übergeben und sie gibt alle Elemente zurück, auf die der Selektor zutrifft\cite{bs4-find-all}. 
+So lassen sich gleiche Strukturen einer Seite scrapen, 
+z. B. Textblöcke einer Webseite. 
+Nimmt man als Beispiel Artikel von der Seite tagesschau.de, 
+lassen sich so die Texte eines Artikel extrahieren. 
+Dieser Fall lässt sich wie folgt darstellen:
+
+\begin{lstlisting}[language=Python,gobble=2]
+  textabsatz = html.find_all(class_='textabsatz')
+\end{lstlisting}
+
+Als Selektor dient hier der Klassenname der jeweiligen HTML Tags. Eine Alternative zu \texttt{find\_all} ist \texttt{find}.
+Mit dieser Funktion wird lediglich ein einzelner Wert zurückgegeben (bei mehreren Treffern der erste).
+
+Es existieren weitere Funktionen zur Selektion.
+Diese ermöglichen z. B. die Selektion anhand von Regex
+oder die Navigation auf Eltern- oder Geschwisterknoten. 
+Eine vollständige Beschreibung der verfügbaren Funktionen befindet sich in der Dokumentation von BS4\cite{bs4}.
+

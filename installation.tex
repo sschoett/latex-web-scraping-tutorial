@@ -1,0 +1,31 @@
+%!TEX root = thesis.tex
+
+\chapter{Installation}
+\label{chapter-installation}
+
+Dieser Abschnitt beschreibt die notwendigen Schritte zur Installation von BS4 und Requests.
+Eine vorhandene Installation von Python 3 wird vorausgesetzt.
+
+\section{BeautifulSoup (BS4)}
+
+Die Installation von BS4 kann gem. Dokumentation\cite{bs4} bei den Linux Derivaten Debian oder Ubuntu über den integrierten System Paket Manager apt-get durchgeführt werden.
+
+\texttt{\$ apt-get install python3-bs4}
+
+Ist eine Installation über einen System Paket Manager nicht möglich, gibt es die Möglichkeit, BS4 über die Paket Manager Easy Install und PIP zu installieren.
+
+\texttt{\$ easy\_install beautifulsoup4}
+
+\texttt{\$ pip install beautifulsoup4}
+
+Bei älteren Versionen von Python, kann es zu Problemen bei der Installation kommen.
+Es ist darauf zu achten, dass die passenden Paket Manager für Version 3 verwendet werden. 
+Gegebenenfalls muss die Installation alternativ mit den Kommandos \texttt{easy\_install3} oder \texttt{pip3} durchgeführt werden.
+
+\section{Requests}
+
+Die Installation von \texttt{requests} erfolgt ebenfalls über den Paket Manager \texttt{pip}\cite{pypi-requests}.
+
+\texttt{\$ pip install requests}
+
+In der offiziellen Dokumentation des Pakets wird zusätzlich eine Variante über den Source Code bschrieben, sollte es Probleme geben\cite{requests-readthedocs}.
